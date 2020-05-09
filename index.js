@@ -10,23 +10,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 app.use((req, res, next) => {
-   console.log(req.method + " " + req.path +" " + req.ip);
+   console.log(req.method + "----->" + req.path +"----->" + req.ip);
    next();  
 });
 
-app.get('/', (req, res) => {
-	res.send(`<a href="/pug">hello pug</a><br />
-  <a href="/test">hello test</a>`);
-});
-
-app.listen(3000, () => console.log('server started'));
-
-app.get('/pug', function (req, res) {
-  res.render('index', { title: 'Hey', message: 'Hi there!' })
+app.get("/", function(req,res){
+    res.render("index.pug",{"title":"Lahoot-Home"})
 })
 
-app.get('/test', function (req, res, next) {
-  console.log('hello test')
-  next()
-  res.send( 'Hello test' )
+app.get("/games", function(req,res){
+    res.render("index.pug",{"title":"Lahoot-Games"})
+})
+
+app.get("/register", function(req,res){
+    res.render("index.pug",{"title":"Lahoot-Register"})
+})
+
+app.post("/login", function(req,res){
+    res.render("index.pug",{"title":"Lahoot-Login"})
+})
+
+app.listen(3000 , function(){
+    console.log("The Server is Started")
 });
