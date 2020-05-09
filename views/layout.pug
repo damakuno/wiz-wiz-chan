@@ -4,6 +4,7 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+        link(rel="stylesheet", href="/")
         if title
             title #{title}
         else
@@ -15,13 +16,17 @@ html(lang="en")
                     a.brand-logo(href='/' style="padding-left:10px") Lahoot.it
                         ul#nav-mobile.right.hide-on-med-and-down
                             li
-                                a(href='/') Home
+                                a(href='/').waves-effect.waves-light Home
                             li
-                                a(href='/games') Games
+                                a(href='/games').waves-effect.waves-light Games
                             li
-                                a(href='/register') Login/Signup
+                                a(href='/register').waves-effect.waves-light Login/Signup
         block content
 
         div.container
             hr
             p(class="teal-text text-darken-5 center") Copyright &copy; Registered &reg;
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+        script(src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous")
+        script(src="/js/main.js")
