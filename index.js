@@ -43,8 +43,12 @@ app.get("/games", function (req, res) {
 })
 
 app.get("/games/:gameId", function (req, res) {
-    console.log(req.params);
-    res.render("games.pug", { "title": "Lahoot-Games" })
+    // console.log(req.params);
+    // let game = new wiz.Game();
+    // game.load(req.params.gameId).then((game) => {
+    res.render("games.pug", { "title": "Lahoot-Games" });
+    // }
+    // ).catch(err => { })
 })
 
 app.get("/register", function (req, res) {
