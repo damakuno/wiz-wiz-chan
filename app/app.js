@@ -3,15 +3,15 @@ const model = require('../models/model.js');
 
 class User {
     constructor(params) {
-        this.userId = params.userId,
-            this.firstname = params.firstname,
-            this.lastname = params.lastname,
-            this.username = params.username,
-            this.email = params.email,
-            this.password = params.password,
-            this.gender = params.gender,
-            this.createdOn = params.createdOn,
-            this.country = params.country
+        this.userId = params.userId;
+        this.firstname = params.firstname;
+        this.lastname = params.lastname;
+        this.username = params.username;
+        this.email = params.email;
+        this.password = params.password;
+        this.gender = params.gender;
+        this.createdOn = params.createdOn;
+        this.country = params.country;
     }
     save() {
         //something like db.users.save(this.whatever)
@@ -24,9 +24,9 @@ class User {
 class RoomUser extends User {
     constructor(params, roomId) {
         super(params);
-        this.score = 0,
-            this.answers = [],
-            this.roomId = roomId //link to Game (with roomId)
+        this.score = 0;
+        this.answers = [];
+        this.roomId = 0;
     }
     addScore() {
         this.score += 1
@@ -42,12 +42,11 @@ class RoomUser extends User {
 
 class Game {
     constructor(params) {
-        this.roomId = params.roomId,
-            this.hostUserId = params.hostUserId,
-            this.roomUserIds = params.roomUserIds, //should be an array
-            this.quizSetId = params.quizSetId, // link to QuizSet
-            this.createdOn = params.createdOn ?
-                params.createdOn : Date.now()
+        this.roomId = 0;
+        this.hostUserId = 0;
+        this.roomUserIds = [];
+        this.quizSetId = 0;
+        this.createdOn = null;
     }
 
     load(id) {
