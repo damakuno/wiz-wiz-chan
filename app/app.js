@@ -65,15 +65,12 @@ class Game {
 
 class QuizSet {
     constructor(params) {
-        this.quizSetId = params.quizSetId,
-            this.createdByUserId = params.createdByUserId, // link to User
-            this.name = params.name,
-            this.description = params.description,
-            this.createdOn = params.createdOn ?
-                params.createdOn : Date.now()
-        this.questions = params.questions ?
-            params.questions : []
-        //this should be an array of QuizQuestions
+        this.quizSetId = 0;
+        this.createdByUserId = 0; // link to User
+        this.name = '';
+        this.description = '';
+        this.createdOn = null
+        this.questions = [];
     }
 
     load(id) {
@@ -91,21 +88,38 @@ class QuizSet {
 
 class QuizQuestions {
     constructor(params) {
-        this.quizSetId = params.quizSetId, //link to QuizSet
-            this.questionId = params.questionId,
-            this.number = params.number,
-            this.content = params.content,
-            this.correct_answer_index = params.correct_answer_index ?
-                params.correct_answer_index : 0;
-        this.answers = params.answers ?
-            params.answers : []
+        this.quizSetId = 0; //link to QuizSet
+        this.questionId = 0;
+        this.number = 0;
+        this.content = '',
+            this.correct_answer_index = 0;
+        this.answers = [];
         //should be an array of answers, can just be strings
-        this.createdOn = params.createdOn ?
-            params.createdOn : Date.now()
+        this.createdOn = null;
     }
-
     load(id) {
-        
+        return new Promise((res, rej) => {
+            model.db.all('SELECT * FROM quizquestions WHERE questionId = ?', [id],
+                (err, rows) => {
+                    if (err) {
+                        rej(err);
+                    }
+                    if (rows[0]) {
+                        let question = rows[0];         
+                        Object.assign(this, question);
+                        // get answers
+                        model.db.all('SELECT * FROM quizanswers WHERE questionId = ?', [id],
+                        (err, rows) => {
+                            if(err) {
+                                rej(err);
+                            }                            
+                            this.answers = rows;
+                            res(this);
+                        });                        
+                    }
+                }
+            );
+        });
     }
 
     save() {

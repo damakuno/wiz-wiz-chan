@@ -10,6 +10,12 @@ var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
 countries = countries.split('\r\n')
 
 model.init();
+let qq = new wiz.QuizQuestions();
+qq.load(1).then((res) => {
+    console.dir(res);
+}).catch(err => console.log(err));
+
+
 
 app.set('views', './views')
 app.set('view engine', 'pug')
