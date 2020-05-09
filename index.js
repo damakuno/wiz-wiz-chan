@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
+const db = require("./models/model")
 const PORT = process.env.PORT || 3000;
+const app = express();
 
 app.set('views', './views')
 app.set('view engine', 'pug')
@@ -11,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 app.use((req, res, next) => {
-    console.log(req.method + "----->" + req.path + "----->" + req.ip);
+    console.log("Method: " + req.method + " -----> " + "Path: " + req.path + " -----> " + "Requested IP: " + req.ip);
     next();
 });
 
