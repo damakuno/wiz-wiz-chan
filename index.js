@@ -3,12 +3,13 @@ const bodyParser = require('body-parser');
 const model = require("./models/model.js")
 const wiz = require('./app/app.js');
 const PORT = process.env.PORT || 3000;
-const fs = require("fs")
+const fs = require("fs");
 const app = express();
 
 var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
 countries = countries.split('\r\n')
 
+model.init();
 
 app.set('views', './views')
 app.set('view engine', 'pug')

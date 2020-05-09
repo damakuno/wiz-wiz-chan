@@ -50,6 +50,10 @@ class Game {
                 params.createdOn : Date.now()
     }
 
+    load(id) {
+
+    }
+
     save() {
         // write code to save in database
     }
@@ -70,6 +74,10 @@ class QuizSet {
         this.questions = params.questions ?
             params.questions : []
         //this should be an array of QuizQuestions
+    }
+
+    load(id) {
+
     }
 
     save() {
@@ -94,6 +102,10 @@ class QuizQuestions {
         //should be an array of answers, can just be strings
         this.createdOn = params.createdOn ?
             params.createdOn : Date.now()
+    }
+
+    load(id) {
+        
     }
 
     save() {
