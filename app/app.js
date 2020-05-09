@@ -47,7 +47,7 @@ class Game {
             this.roomUserIds = params.roomUserIds, //should be an array
             this.quizSetId = params.quizSetId, // link to QuizSet
             this.createdOn = params.createdOn ?
-                params.createdOn : Date.now()
+            params.createdOn : Date.now()
     }
 
     load(id) {
@@ -105,17 +105,17 @@ class QuizQuestions {
                         rej(err);
                     }
                     if (rows[0]) {
-                        let question = rows[0];         
+                        let question = rows[0];
                         Object.assign(this, question);
                         // get answers
                         model.db.all('SELECT * FROM quizanswers WHERE questionId = ?', [id],
-                        (err, rows) => {
-                            if(err) {
-                                rej(err);
-                            }                            
-                            this.answers = rows;
-                            res(this);
-                        });                        
+                            (err, rows) => {
+                                if (err) {
+                                    rej(err);
+                                }
+                                this.answers = rows;
+                                res(this);
+                            });
                     }
                 }
             );
