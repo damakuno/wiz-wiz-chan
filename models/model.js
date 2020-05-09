@@ -4,5 +4,4 @@ const db = new sqlite3.Database("../db.sqlite")
 
 console.log("The Database is connected")
 
-
 module.export = db
