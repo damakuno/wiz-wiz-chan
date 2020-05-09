@@ -4,7 +4,6 @@ const db = new sqlite3.Database("../db.sqlite", err => {
     console.log(err);
 });
 
-<<<<<<< HEAD
 db.run(`CREATE TABLE IF NOT EXISTS dummy (
                 Id BIGSERIAL PRIMARY KEY
             )`);
@@ -23,9 +22,6 @@ db.run(`CREATE TABLE IF NOT EXISTS quizset (
                          createdOn DATETIME DEFAULT now
                         ); 
                 `);
-=======
-console.log("The Database is Connected")
->>>>>>> 1de612ba08641dae863ec1f5faa94a0a315d5e25
 
 db.close();
 console.log("The Database is initialized");
