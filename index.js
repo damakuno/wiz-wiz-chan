@@ -2,8 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require("./models/model")
 const PORT = process.env.PORT || 3000;
+const fs = require("fs")
 const app = express();
 
+
+
+var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
+countries = countries.split('\r\n')
 app.set('views', './views')
 app.set('view engine', 'pug')
 
@@ -25,7 +30,7 @@ app.get("/games", function (req, res) {
 })
 
 app.get("/register", function (req, res) {
-    res.render("register.pug", { "title": "Lahoot-Register" })
+    res.render("register.pug", { "title": "Lahoot-Register", "countries": countries })
 })
 
 app.post("/login", function (req, res) {

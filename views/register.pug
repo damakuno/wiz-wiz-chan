@@ -1,4 +1,61 @@
 extends layout
 
 block content
-    
+    .center.red-text
+        h4 Register
+    form.form-control(action='/login' method='POST')
+    .row
+        .input-field.col.s12.m6.l6
+            i.material-icons.prefix.small account_circle
+            input(type='text' name='firstname' maxlength='50')
+            label(for='firstname') First Name
+        .input-field.col.s12.m6.l6
+            i.material-icons.prefix.small account_circle
+            input(type='text' name='lastname' maxlength='50')
+            label(for='lastname') Last Name
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small account_circle
+            input(type='text' name='username' maxlength='15')
+            label(for='username') Username
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small email
+            input(type='email' name='email' maxlength='100')
+            label(for='email') Email
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small lock
+            input(type='password' name='password' minlength='8' maxlength='15')
+            label(for='password') Password
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small lock
+            input(type='password' name='cpassword' minlength='8' maxlength='15')
+            label(for='cpassword') Confirm Password
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small date_range
+            input(type='date' pattern='\d{2}-\d{2}-\d{4}' name='date_of_birth')
+            label(for='date') Date of Birth
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small wc
+            select(name='gender')
+                option(value='NA') Choose your option
+                option(value='Male') Male
+                option(value='Female') Female
+                option(value='Other') Other
+            label Gender
+    .row
+        .input-field.col.s12.m12.l12
+            i.material-icons.prefix.small location_searching
+            select(name='country')
+                option(value='never choose') Choose the Country of Birth
+                each country in countries
+                    option(value=country)= country
+            label Country of Birth
+    .row
+        .input-field.col.s12.m12.center-align
+            button.btn.btn-medium.waves-effect.waves-light.teal(type='submit') Submit
+            button.btn.btn-medium.waves-effect.waves-light.teal(type='reset') Reset
