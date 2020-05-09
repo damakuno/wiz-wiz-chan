@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require("./models/model.js")
+const db = require("./models/model")
 const wiz = require('./app/app.js');
 const PORT = process.env.PORT || 3000;
 const fs = require("fs")
@@ -34,15 +34,14 @@ app.get("/register", function (req, res) {
     res.render("register.pug", { "title": "Lahoot-Register", "countries": countries })
 })
 
+app.get("/login", function (req, res) {
+    res.render("login.pug", { "title": "Lahoot-Login" })
+})
+
 app.post("/login", function (req, res) {
     res.render("login.pug", { "title": "Lahoot-Login" })
 })
 
 app.listen(PORT, function () {
     console.log(`The Server is Started @ ${PORT}`)
-
-    db.close((err) => {
-        if (err)
-            console.error(err)
-    })
 });
