@@ -35,6 +35,10 @@ app.get("/register", function (req, res) {
     res.render("register.pug", { "title": "Lahoot-Register", "countries": countries })
 })
 
+app.get("/login", function (req, res) {
+    res.render("login.pug", { "title": "Lahoot-Login" })
+})
+
 app.post("/login", function (req, res) {
     res.render("login.pug", { "title": "Lahoot-Login" })
 })
