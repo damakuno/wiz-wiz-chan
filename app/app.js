@@ -3,15 +3,15 @@ const model = require('../models/model.js');
 
 class User {
     constructor(params) {
-        this.userId = params.userId,
-            this.firstname = params.firstname,
-            this.lastname = params.lastname,
-            this.username = params.username,
-            this.email = params.email,
-            this.password = params.password,
-            this.gender = params.gender,
-            this.createdOn = params.createdOn,
-            this.country = params.country
+        this.userId = params.userId;
+        this.firstname = params.firstname;
+        this.lastname = params.lastname;
+        this.username = params.username;
+        this.email = params.email;
+        this.password = params.password;
+        this.gender = params.gender;
+        this.createdOn = params.createdOn;
+        this.country = params.country;
     }
     save() {
         //something like db.users.save(this.whatever)
@@ -24,9 +24,9 @@ class User {
 class RoomUser extends User {
     constructor(params, roomId) {
         super(params);
-        this.score = 0,
-            this.answers = [],
-            this.roomId = roomId //link to Game (with roomId)
+        this.score = 0;
+        this.answers = [];
+        this.roomId = 0;
     }
     addScore() {
         this.score += 1
@@ -42,12 +42,11 @@ class RoomUser extends User {
 
 class Game {
     constructor(params) {
-        this.roomId = params.roomId,
-            this.hostUserId = params.hostUserId,
-            this.roomUserIds = params.roomUserIds, //should be an array
-            this.quizSetId = params.quizSetId, // link to QuizSet
-            this.createdOn = params.createdOn ?
-            params.createdOn : Date.now()
+        this.roomId = 0;
+        this.hostUserId = 0;
+        this.roomUserIds = [];
+        this.quizSetId = 0;
+        this.createdOn = null;
     }
 
     load(id) {
@@ -67,14 +66,42 @@ class QuizSet {
     constructor(params) {
         this.quizSetId = 0;
         this.createdByUserId = 0; // link to User
-        this.name = '';
-        this.description = '';
+        this.quizName = '';
+        this.quizDescription = '';
         this.createdOn = null
         this.questions = [];
     }
-
     load(id) {
+        return new Promise((res, rej) => {
+            model.db.all('SELECT * FROM quizset WHERE quizSetId = ?', [id],
+                (err, rows) => {
+                    if (err) {
+                        rej(err);
+                    }
+                    if (rows[0]) {
+                        Object.assign(this, rows[0]);
+                        model.db.all('SELECT questionId FROM quizquestions WHERE quizSetId = ?', [id],
+                            (err, rows) => {
+                                if (err) {
+                                    rej(err);
+                                }
+                                let promises = [];
+                                rows.forEach(row => {
+                                    let qq = new QuizQuestion()
+                                    promises.push(qq.load(row.questionId));
+                                });
 
+                                Promise.all(promises).then((values) => {
+                                    values.forEach(value => {
+                                        this.questions.push(value);
+                                    });
+                                    res(this);
+                                }).catch(err => console.log(err));
+                            });
+
+                    }
+                });
+        });
     }
 
     save() {
@@ -86,7 +113,7 @@ class QuizSet {
     }
 }
 
-class QuizQuestions {
+class QuizQuestion {
     constructor(params) {
         this.quizSetId = 0; //link to QuizSet
         this.questionId = 0;
@@ -105,8 +132,7 @@ class QuizQuestions {
                         rej(err);
                     }
                     if (rows[0]) {
-                        let question = rows[0];
-                        Object.assign(this, question);
+                        Object.assign(this, rows[0]);
                         // get answers
                         model.db.all('SELECT * FROM quizanswers WHERE questionId = ?', [id],
                             (err, rows) => {
@@ -137,5 +163,5 @@ module.exports = {
     User: User,
     RoomUser: RoomUser,
     QuizSet: QuizSet,
-    QuizQuestions: QuizQuestions
+    QuizQuestion: QuizQuestion
 }
