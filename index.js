@@ -1,11 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
 const db = require("./models/model.js")
 const wiz = require('./app/app.js');
-=======
-const db = require("./models/model")
->>>>>>> 1d1dae235ad876742b02ba648ed0b4594a7107fe
 const PORT = process.env.PORT || 3000;
 const fs = require("fs")
 const app = express();
@@ -29,12 +25,8 @@ app.get("/", function (req, res) {
     res.render("home.pug", { "title": "Lahoot-Home" })
 })
 
-<<<<<<< HEAD
 app.get("/games/:gameId", function (req, res) {
     console.log(req.params);
-=======
-app.get("/games", function (req, res) {
->>>>>>> 1d1dae235ad876742b02ba648ed0b4594a7107fe
     res.render("games.pug", { "title": "Lahoot-Games" })
 })
 
@@ -48,12 +40,9 @@ app.post("/login", function (req, res) {
 
 app.listen(PORT, function () {
     console.log(`The Server is Started @ ${PORT}`)
-<<<<<<< HEAD
 
     db.close((err) => {
         if (err)
             console.error(err)
     })
-=======
->>>>>>> 1d1dae235ad876742b02ba648ed0b4594a7107fe
 });
