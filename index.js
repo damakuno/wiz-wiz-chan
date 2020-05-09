@@ -5,8 +5,6 @@ const PORT = process.env.PORT || 3000;
 const fs = require("fs")
 const app = express();
 
-
-
 var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
 countries = countries.split('\r\n')
 app.set('views', './views')
@@ -39,4 +37,9 @@ app.post("/login", function (req, res) {
 
 app.listen(PORT, function () {
     console.log(`The Server is Started @ ${PORT}`)
+
+    db.close((err) => {
+        if (err)
+            console.error(err)
+    })
 });
