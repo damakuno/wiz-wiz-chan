@@ -7,6 +7,7 @@ const app = express();
 
 var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
 countries = countries.split('\r\n')
+
 app.set('views', './views')
 app.set('view engine', 'pug')
 
