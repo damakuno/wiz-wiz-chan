@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
 	res.send(`<a href="/pug">hello pug</a><br />
-  <a href="/test">hello test</a>`);
+  <a href="/test">hello tet</a>`);
 });
 
 app.listen(3000, () => console.log('server started'));
