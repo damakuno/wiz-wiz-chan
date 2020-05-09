@@ -26,6 +26,11 @@ app.get("/", function (req, res) {
     res.render("home.pug", { "title": "Lahoot-Home" })
 })
 
+app.get("/games", function (req, res) {
+    console.log(req.params);
+    res.render("games.pug", { "title": "Lahoot-Games" })
+})
+
 app.get("/games/:gameId", function (req, res) {
     console.log(req.params);
     res.render("games.pug", { "title": "Lahoot-Games" })

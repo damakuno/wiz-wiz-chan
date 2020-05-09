@@ -1,7 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database("../db.sqlite", err => {
-    console.log(err);
+    if (err)
+        console.log(err);
 });
 
 db.run(`CREATE TABLE IF NOT EXISTS dummy (
