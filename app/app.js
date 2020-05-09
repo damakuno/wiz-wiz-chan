@@ -1,4 +1,4 @@
-const db = require('../models/model.js');
+const model = require('../models/model.js');
 
 
 class User {
@@ -84,14 +84,14 @@ class QuizSet {
 class QuizQuestions {
     constructor(params) {
         this.quizSetId = params.quizSetId, //link to QuizSet
-        this.questionId = params.questionId,
+            this.questionId = params.questionId,
             this.number = params.number,
             this.content = params.content,
             this.correct_answer_index = params.correct_answer_index ?
                 params.correct_answer_index : 0;
         this.answers = params.answers ?
             params.answers : []
-            //should be an array of answers, can just be strings
+        //should be an array of answers, can just be strings
         this.createdOn = params.createdOn ?
             params.createdOn : Date.now()
     }
