@@ -1,19 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
-const db = require("./models/model.js")
-const wiz = require('./app/app.js');
-=======
 const db = require("./models/model")
->>>>>>> a50d6d0d49e2beec0f80b948c062f5c130c50d2c
 const PORT = process.env.PORT || 3000;
 const fs = require("fs")
 const app = express();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a50d6d0d49e2beec0f80b948c062f5c130c50d2c
 var countries = fs.readFileSync('./public/text/countries.txt', 'utf-8')
 countries = countries.split('\r\n')
 app.set('views', './views')
@@ -32,12 +23,7 @@ app.get("/", function (req, res) {
     res.render("home.pug", { "title": "Lahoot-Home" })
 })
 
-<<<<<<< HEAD
-app.get("/games/:gameId", function (req, res) {
-    console.log(req.params);
-=======
 app.get("/games", function (req, res) {
->>>>>>> a50d6d0d49e2beec0f80b948c062f5c130c50d2c
     res.render("games.pug", { "title": "Lahoot-Games" })
 })
 
@@ -51,12 +37,9 @@ app.post("/login", function (req, res) {
 
 app.listen(PORT, function () {
     console.log(`The Server is Started @ ${PORT}`)
-<<<<<<< HEAD
-=======
 
     db.close((err) => {
         if (err)
             console.error(err)
     })
->>>>>>> a50d6d0d49e2beec0f80b948c062f5c130c50d2c
 });
