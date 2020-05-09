@@ -19,11 +19,11 @@ This folder contains the CSS files related to the website
 
 This folder contains the JS files related to the website
 
-# [Public JS](public/images/)
+# [Public Images](public/images/)
 
 This folder contains the image files related to the website
 
-# [Public JS](public/text/)
+# [Public Texts](public/text/)
 
 This folder contains the text files related to the website
 
