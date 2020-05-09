@@ -67,14 +67,42 @@ class QuizSet {
     constructor(params) {
         this.quizSetId = 0;
         this.createdByUserId = 0; // link to User
-        this.name = '';
-        this.description = '';
+        this.quizName = '';
+        this.quizDescription = '';
         this.createdOn = null
         this.questions = [];
     }
-
     load(id) {
+        return new Promise((res, rej) => {
+            model.db.all('SELECT * FROM quizset WHERE quizSetId = ?', [id],
+                (err, rows) => {
+                    if (err) {
+                        rej(err);
+                    }
+                    if (rows[0]) {
+                        Object.assign(this, rows[0]);
+                        model.db.all('SELECT questionId FROM quizquestions WHERE quizSetId = ?', [id],
+                            (err, rows) => {
+                                if (err) {
+                                    rej(err);
+                                }
+                                let promises = [];
+                                rows.forEach(row => {
+                                    let qq = new QuizQuestion()
+                                    promises.push(qq.load(row.questionId));
+                                });
 
+                                Promise.all(promises).then((values) => {
+                                    values.forEach(value => {
+                                        this.questions.push(value);
+                                    });
+                                    res(this);
+                                }).catch(err => console.log(err));
+                            });
+
+                    }
+                });
+        });
     }
 
     save() {
@@ -86,7 +114,7 @@ class QuizSet {
     }
 }
 
-class QuizQuestions {
+class QuizQuestion {
     constructor(params) {
         this.quizSetId = 0; //link to QuizSet
         this.questionId = 0;
@@ -105,17 +133,16 @@ class QuizQuestions {
                         rej(err);
                     }
                     if (rows[0]) {
-                        let question = rows[0];         
-                        Object.assign(this, question);
+                        Object.assign(this, rows[0]);
                         // get answers
                         model.db.all('SELECT * FROM quizanswers WHERE questionId = ?', [id],
-                        (err, rows) => {
-                            if(err) {
-                                rej(err);
-                            }                            
-                            this.answers = rows;
-                            res(this);
-                        });                        
+                            (err, rows) => {
+                                if (err) {
+                                    rej(err);
+                                }
+                                this.answers = rows;
+                                res(this);
+                            });
                     }
                 }
             );
@@ -137,5 +164,5 @@ module.exports = {
     User: User,
     RoomUser: RoomUser,
     QuizSet: QuizSet,
-    QuizQuestions: QuizQuestions
+    QuizQuestion: QuizQuestion
 }
