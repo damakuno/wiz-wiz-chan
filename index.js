@@ -37,9 +37,4 @@ app.post("/login", function (req, res) {
 
 app.listen(PORT, function () {
     console.log(`The Server is Started @ ${PORT}`)
-
-    db.close((err) => {
-        if (err)
-            console.error(err)
-    })
 });
