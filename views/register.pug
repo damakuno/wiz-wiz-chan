@@ -36,8 +36,8 @@ block content
     .row
         .input-field.col.s12.m12.l12
             i.material-icons.prefix.small date_range
-            input(type='date' pattern='\d{2}-\d{2}-\d{4}' name='date_of_birth')
-            label(for='date') Date of Birth
+            input(type='date' name='date_of_birth')
+            label(for='date_of_birth') Date of Birth
     .row
         .input-field.col.s12.m12.l12
             i.material-icons.prefix.small wc
@@ -52,7 +52,7 @@ block content
             i.material-icons.prefix.small flight
             select(name='country')
                 option(value='never choose') Choose the Country of Birth
-                each country in countries
+                each country in countries                    
                     option(value=country)= country
             label Country of Birth
     .row
