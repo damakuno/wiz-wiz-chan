@@ -18,7 +18,13 @@ model.init();
 // qs.load(1).then ((res) => {
 //     console.dir(qs);
 // }).catch(err => console.log(err));
-
+// let game = new wiz.Game();
+// game.load(1).then((res) => {
+//     console.dir(game);
+//     game.quizSet.then(s =>
+//         console.dir(s)
+//     );
+// }).catch(err => console.log(err));
 
 
 app.set('views', './views')
@@ -42,13 +48,14 @@ app.get("/games", function (req, res) {
     res.render("games.pug", { "title": "Lahoot-Games" })
 })
 
-app.get("/games/:gameId", function (req, res) {
-    // console.log(req.params);
-    // let game = new wiz.Game();
-    // game.load(req.params.gameId).then((game) => {
-    res.render("games.pug", { "title": "Lahoot-Games" });
-    // }
-    // ).catch(err => { })
+app.get("/games/:roomId", function (req, res) {
+    let game = new wiz.Game();
+    game.load(req.params.roomId).then((val) => {
+        console.dir(game);
+        res.render("games.pug",
+            { "title": "Lahoot-Games", "game": game }
+        );
+    }).catch(err => console.log(err));
 })
 
 app.get("/register", function (req, res) {
