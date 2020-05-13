@@ -46,11 +46,30 @@ class Game {
         this.hostUserId = 0;
         this.roomUserIds = [];
         this.quizSetId = 0;
+        this.quizSet = null;
         this.createdOn = null;
     }
 
     load(id) {
-
+        return new Promise((res, rej) => {
+            model.db.all('SELECT * FROM game WHERE roomId = ?', [id],
+                (err, rows) => {
+                    if (err) {
+                        rej(err);
+                    }
+                    if (rows[0]) {
+                        Object.assign(this, rows[0]);
+                        let qs = new QuizSet();
+                        qs.load(this.quizSetId).then(val => {
+                            this.quizSet = val;
+                            res(this);
+                        }).catch(err => {
+                            rej(err);
+                        });
+                    }
+                }
+            );
+        });
     }
 
     save() {
