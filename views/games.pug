@@ -1,4 +1,10 @@
 extends layout
 
 block content
-    
+    div.test    
+        each question in game.quizSet.questions
+            p Q#{question.number}
+            p #{question.content}
+            div(class=`hidden q-${question.number}-index`) #{question.correct_answer_index}
+            each answer in question.answers
+                p #{answer.number}. #{answer.content}

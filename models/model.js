@@ -10,7 +10,11 @@ const db = new sqlite3.Database(path.join(__dirname, "db.sqlite"), err => {
 module.exports = {
     init: function init() {
         db.serialize(() => {
-            db.run(`CREATE TABLE IF NOT EXISTS game (
+            db.run('DROP TABLE game')
+            .run('DROP TABLE quizanswers')
+            .run('DROP TABLE quizquestions')
+            .run('DROP TABLE quizset')
+            .run(`CREATE TABLE IF NOT EXISTS game (
                 roomId INTEGER PRIMARY KEY AUTOINCREMENT,
                 hostUserId INTEGER NULL,
                 quizSetId INTEGER NULL,
@@ -45,13 +49,13 @@ module.exports = {
             `).run(`INSERT INTO quizquestions (quizSetId, number, content, correctAnswerNumber)
                 VALUES (1, 2, 'What is e^0?', 1)
             `).run(`INSERT INTO quizanswers (questionId, number, content)
-            VALUES (1, 1, '1')
+            VALUES (1, 1, 'The asnwer is 1')
             `).run(`INSERT INTO quizanswers (questionId, number, content)
-            VALUES (1, 2, '2')
+            VALUES (1, 2, 'The asnwer is 2')
             `).run(`INSERT INTO quizanswers (questionId, number, content)
-            VALUES (2, 1, '1')
+            VALUES (2, 1, 'The asnwer is 1')
             `).run(`INSERT INTO quizanswers (questionId, number, content)
-                VALUES (2, 2, '2')
+                VALUES (2, 2, 'The asnwer is 2')
             `);
         })
 

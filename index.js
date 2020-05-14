@@ -57,15 +57,14 @@ app.get("/games", function (req, res) {
   });
 });
 
-app.get("/games/:gameId", function (req, res) {
-  // console.log(req.params);
-  // let game = new wiz.Game();
-  // game.load(req.params.gameId).then((game) => {
+app.get("/games/:roomId", function (req, res) {
+  let game = new wiz.Game();
+   game.load(req.params.roomId).then((game) => {
   res.render("games.pug", {
     title: "Lahoot-Games",
+    game: game
   });
-  // }
-  // ).catch(err => { })
+   }).catch(err => { console.log(err) })
 });
 
 app.get("/register", function (req, res) {
