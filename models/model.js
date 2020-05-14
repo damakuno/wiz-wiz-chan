@@ -18,6 +18,7 @@ module.exports = {
                 roomId INTEGER PRIMARY KEY AUTOINCREMENT,
                 hostUserId INTEGER NULL,
                 quizSetId INTEGER NULL,
+                questionDuration INTEGER NULL,
                 createdOn DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
              `).run(`CREATE TABLE IF NOT EXISTS quizset (

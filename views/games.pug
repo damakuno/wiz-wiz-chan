@@ -1,10 +1,17 @@
 extends layout
 
 block content
-    div.test    
-        each question in game.quizSet.questions
-            p Q#{question.number}
-            p #{question.content}
-            div(class=`hidden q-${question.number}-index`) #{question.correct_answer_index}
-            each answer in question.answers
-                p #{answer.number}. #{answer.content}
+    div.container
+        div.row
+            div.col.s12                
+                each question in game.quizSet.questions    
+                    div.card(id=`card-${question.number}` class=`${question.number > 1 ? 'hidden': ''}` )
+                        div.card-title.center
+                            p(id=`question-${question.number}`) Question #{question.number}
+                        div.card-content
+                            p.question-content #{question.content}
+                        div(class=`hidden q-${question.number}-index`) #{question.correct_answer_index}
+                        each answer in question.answers
+                            div(class=`card-action`)
+                                p.answer #{answer.number}. #{answer.content}
+            

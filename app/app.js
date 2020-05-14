@@ -47,7 +47,8 @@ class Game {
         this.roomUserIds = [];
         this.quizSetId = 0;
         this.quizSet = null;
-        this.createdOn = null;
+        this.questionDuration = 0;
+        this.createdOn = null;        
     }
 
     load(id) {
