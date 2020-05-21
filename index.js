@@ -33,13 +33,13 @@ app.use(express.static("public"));
 app.use((req, res, next) => {
   console.log(
     "Method: " +
-    req.method +
-    " -----> " +
-    "Path: " +
-    req.path +
-    " -----> " +
-    "Requested IP: " +
-    req.ip
+      req.method +
+      " -----> " +
+      "Path: " +
+      req.path +
+      " -----> " +
+      "Requested IP: " +
+      req.ip
   );
   next();
 });
@@ -59,29 +59,31 @@ app.get("/games", function (req, res) {
 
 app.get("/games/:roomId", function (req, res) {
   let game = new wiz.Game();
-  game.load(req.params.roomId).then((game) => {
-    if (req.headers['content-type']) {
-      if (req.headers['content-type'].includes('application/json')) {
-        // res.setHeader('Content-Type', 'application/json');
-        // res.end(JSON.stringify(game));
-        res.type('json').send(game);
+  game
+    .load(req.params.roomId)
+    .then((game) => {
+      if (req.headers["content-type"]) {
+        if (req.headers["content-type"].includes("application/json")) {
+          // res.setHeader('Content-Type', 'application/json');
+          // res.end(JSON.stringify(game));
+          res.type("json").send(game);
+        } else {
+          res.render("games.pug", {
+            title: "Lahoot-Games",
+            game: game,
+          });
+        }
       } else {
         res.render("games.pug", {
           title: "Lahoot-Games",
-          game: game
+          game: game,
         });
       }
-    } else {
-      res.render("games.pug", {
-        title: "Lahoot-Games",
-        game: game
-      });
-    }
-  }).catch(err => { console.log(err) })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
-
-
-
 
 app.get("/register", function (req, res) {
   res.render("register.pug", {

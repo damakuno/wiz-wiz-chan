@@ -13,5 +13,5 @@ block content
                         div(class=`hidden q-${question.number}-index`) #{question.correct_answer_index}
                         each answer in question.answers
                             div(class=`card-action`)
-                                p.answer #{answer.number}. #{answer.content}
+                                p.answer.clickable #{answer.number}. #{answer.content}
             
