@@ -47,7 +47,6 @@ class Game {
         this.roomUserIds = [];
         this.quizSetId = 0;
         this.quizSet = null;
-        this.questionDuration = 0;
         this.createdOn = null;        
     }
 
@@ -141,7 +140,8 @@ class QuizQuestion {
         this.content = '',
             this.correct_answer_index = 0;
         this.answers = [];
-        //should be an array of answers, can just be strings
+        //should be an array of answers, can just be strings        
+        this.questionDuration = 0;
         this.createdOn = null;
     }
     load(id) {

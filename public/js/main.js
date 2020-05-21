@@ -1,3 +1,5 @@
+let Game;
+
 $(document).ready(function () {
     M.AutoInit()
     $('.carousel').carousel();
@@ -9,17 +11,20 @@ $(document).ready(function () {
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            Game = data;
+            console.dir(Game);
             Question.currentNumber = 1;
             Question.numberOfQuestions = data.quizSet.questions.length;
-            setTimeout(() => {Question.next()}, 1000);
+            Question.start();
         }
     });
 });
 
 let Question = {
     currentNumber: 1,
+    currentQuestion: null,
     numberOfQuestions: 0,
+    timerTick: 0,
     next: () => {
         let selector = `#card-${Question.currentNumber}`;
         if ($(selector)) {
@@ -27,7 +32,13 @@ let Question = {
             $(`#card-${Question.currentNumber}`).fadeOut('slow', () => {
                 Question.currentNumber += 1;
                 $(`#card-${Question.currentNumber}`).fadeIn();
+                Question.currentQuestion = Game.quizSet.questions[Question.currentNumber - 1];
             });
         }
+    },
+    start: () => {
+        Question.currentQuestion = Game.quizSet.questions[Question.currentNumber - 1];
+        Question.timerTick = Question.currentQuestion.questionDuration;  
+        $('.timer').text(Question.timerTick);
     }
 }

@@ -3,7 +3,11 @@ extends layout
 block content
     div.container
         div.row
-            div.col.s12                
+            div.col.m2.s12
+                div.card.teal.lighten-5
+                    div.card-title.center Room
+                        div.card-action #{game.roomId}
+            div.col.m8.s12
                 each question in game.quizSet.questions    
                     div.card(id=`card-${question.number}` class=`${question.number > 1 ? 'hidden': ''}` )
                         div.card-title.center
@@ -14,4 +18,6 @@ block content
                         each answer in question.answers
                             div(class=`card-action`)
                                 p.answer #{answer.number}. #{answer.content}
-            
+            div.col.m2.s12 
+                .card
+                    .card-title.center.timer 0

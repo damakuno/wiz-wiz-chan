@@ -18,7 +18,6 @@ module.exports = {
                 roomId INTEGER PRIMARY KEY AUTOINCREMENT,
                 hostUserId INTEGER NULL,
                 quizSetId INTEGER NULL,
-                questionDuration INTEGER NULL,
                 createdOn DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
              `).run(`CREATE TABLE IF NOT EXISTS quizset (
@@ -34,6 +33,7 @@ module.exports = {
                 number INTEGER NULL,
                 content NVARCHAR(4000) NULL,
                 correctAnswerNumber INTEGER,
+                questionDuration INTEGER NULL,
                 createdOn DATETIME DEFAULT CURRENT_TIMESTAMP
             )`).run(`CREATE TABLE IF NOT EXISTS quizanswers (
                 answerId INTEGER PRIMARY KEY AUTOINCREMENT,            
@@ -45,10 +45,10 @@ module.exports = {
             VALUES (1, 1)
              `).run(`INSERT INTO quizset (createdByUserId, quizName, quizDescription)
              VALUES (1, 'Test', 'This is a test quiz')
-            `).run(`INSERT INTO quizquestions (quizSetId, number, content, correctAnswerNumber)
-                    VALUES (1, 1, 'What is 1 + 1?', 2)
-            `).run(`INSERT INTO quizquestions (quizSetId, number, content, correctAnswerNumber)
-                VALUES (1, 2, 'What is e^0?', 1)
+            `).run(`INSERT INTO quizquestions (quizSetId, number, content, questionDuration, correctAnswerNumber)
+                    VALUES (1, 1, 'What is 1 + 1?', 30, 2)
+            `).run(`INSERT INTO quizquestions (quizSetId, number, content, questionDuration, correctAnswerNumber)
+                VALUES (1, 2, 'What is e^0?', 20, 1)
             `).run(`INSERT INTO quizanswers (questionId, number, content)
             VALUES (1, 1, 'The asnwer is 1')
             `).run(`INSERT INTO quizanswers (questionId, number, content)
